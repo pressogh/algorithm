@@ -8,7 +8,26 @@
 
 int main()
 {
-    
+    printf("(1)\n");
+    for (int i = 'A'; i <= 'Z'; i++)
+    {
+        for (int j = 'A'; j <= i; j++)
+        {
+            printf("%c", j);
+        }
+        printf("\n");
+    }
+
+    printf("\n");
+    printf("(2)\n");
+    for (int i = 'Z'; i >= 'A'; i--)
+    {
+        for (int j = 'A'; j <= i; j++)
+        {
+            printf("%c", j);
+        }
+        printf("\n");
+    }
 
     return 0;
 }

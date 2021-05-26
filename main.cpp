@@ -6,27 +6,35 @@ using ld = long double;
 
 int main()
 {
-    cin.tie(nullptr); cout.tie(nullptr), ios::sync_with_stdio(false);
+    cin.tie(nullptr), cout.tie(nullptr), ios::sync_with_stdio(false);
 
-    int l = 1, p, v;
-    int cnt = 1;
+    string str;
+    cin >> str;
 
-    while(1)
+    vector<int> arr(27, 0);
+
+    for (int i = 0; i < str.size(); i++)
     {
-        ll ans = 0;
-
-        cin >> l >> p >> v; // v일동안 연속하는 p일중 l일 사용가능
-        if (l == 0) break;
-
-        ll temp = 0;
-        if(l > v % p)
-            ans = v % p + v / p * l;
-        else
-            ans = l + v / p * l;
-
-        cout << "Case " << cnt << ": " << ans << endl;
-        cnt++;
+        str[i] = tolower(str[i]);
+        arr[str[i] - 'a']++;
     }
+
+    int max_index = max_element(arr.begin(), arr.end()) - arr.begin();
+    int max = *max_element(arr.begin(), arr.end());
+
+    bool flag = false;
+    for (int i = 0; i < arr.size(); i++)
+    {
+        if (max == arr[i] && i != max_index) flag = true;
+    }
+
+    if (flag) 
+    {
+        cout << "?";
+        return 0;
+    }
+
+    cout << char(max_index + 'A');
 
     return 0;
 }
