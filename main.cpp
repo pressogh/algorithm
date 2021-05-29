@@ -6,33 +6,10 @@ using ld = long double;
 
 int main()
 {
-    cin.tie(nullptr), cout.tie(nullptr), ios::sync_with_stdio(false);
+    double n, m;
+    cin >> n >> m;
 
-    int n;
-    cin >> n;
-
-    vector<int> arr;
-    for (int i = 0; i < n; i++)
-    {
-        int temp;
-        cin >> temp;
-        arr.push_back(temp);
-    }
-
-    int ans = 0;
-    for (int i = n - 1; i >= 1; i--)
-    {
-        if (arr[i] <= arr[i - 1])
-        {
-            while(arr[i] <= arr[i - 1])
-            {
-                arr[i - 1]--;
-                ans++;
-            }
-        }
-    }
-
-    cout << ans;
+    printf("%.12lf", n / m);
 
     return 0;
 }
