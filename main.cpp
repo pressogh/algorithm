@@ -11,30 +11,20 @@ int main()
     string str;
     cin >> str;
 
-    vector<int> arr(27, 0);
-
+    vector<int> arr(2, 0);
+    
     for (int i = 0; i < str.size(); i++)
     {
-        str[i] = tolower(str[i]);
-        arr[str[i] - 'a']++;
+        while(1)
+        {
+            if (str[i] != str[i + 1]) break;
+            i++;
+        }
+        if (str[i] == '0') arr[0]++;
+        else arr[1]++;
     }
 
-    int max_index = max_element(arr.begin(), arr.end()) - arr.begin();
-    int max = *max_element(arr.begin(), arr.end());
-
-    bool flag = false;
-    for (int i = 0; i < arr.size(); i++)
-    {
-        if (max == arr[i] && i != max_index) flag = true;
-    }
-
-    if (flag) 
-    {
-        cout << "?";
-        return 0;
-    }
-
-    cout << char(max_index + 'A');
+    cout << min(arr[0], arr[1]);
 
     return 0;
 }
