@@ -11,30 +11,25 @@ int main()
     int n;
     cin >> n;
 
-    vector<pair<int, int>> arr;
+    vector<int> arr;
     for (int i = 0; i < n; i++)
     {
         int temp;
         cin >> temp;
-        arr.push_back(make_pair(temp, 0));
-    }
-
-    for (int i = 0; i < n; i++)
-    {
-        int j = i + 1;
-        while(1)
-        {
-            if (arr[i].first < arr[j].first) break;
-            arr[i].second++;
-            j++;
-            if (j >= n) break;
-        }
+        arr.push_back(temp);
     }
 
     int ans = 0;
-    for (int i = 0; i < n; i++)
+    for (int i = n - 1; i >= 1; i--)
     {
-        if (arr[i].second > ans) ans = arr[i].second;
+        if (arr[i] <= arr[i - 1])
+        {
+            while(arr[i] <= arr[i - 1])
+            {
+                arr[i - 1]--;
+                ans++;
+            }
+        }
     }
 
     cout << ans;
