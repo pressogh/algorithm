@@ -8,30 +8,33 @@ int main()
 {
     cin.tie(nullptr), cout.tie(nullptr), ios::sync_with_stdio(false);
 
-    ll n, m;
-    cin >> n >> m;
+    int n;
+    cin >> n;
 
-    vector<ll> arr;
-    for (auto i = 0; i < n; i++)
+    vector<pair<int, int>> arr;
+    for (int i = 0; i < n; i++)
     {
-        ll temp;
+        int temp;
         cin >> temp;
-        arr.push_back(temp);
+        arr.push_back(make_pair(temp, 0));
     }
 
-    ll ans = 0;
-    while (m--)
+    for (int i = 0; i < n; i++)
     {
-        sort(arr.begin(), arr.end());
-
-        ll temp = arr[0] + arr[1];
-        arr[0] = temp;
-        arr[1] = temp;
+        int j = i + 1;
+        while(1)
+        {
+            if (arr[i].first < arr[j].first) break;
+            arr[i].second++;
+            j++;
+            if (j >= n) break;
+        }
     }
 
-    for (auto i = 0; i < arr.size(); i++)
+    int ans = 0;
+    for (int i = 0; i < n; i++)
     {
-        ans += arr[i];
+        if (arr[i].second > ans) ans = arr[i].second;
     }
 
     cout << ans;
