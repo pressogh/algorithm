@@ -8,23 +8,16 @@ int main()
 {
     cin.tie(nullptr), cout.tie(nullptr), ios::sync_with_stdio(false);
 
-    string str;
-    cin >> str;
+    int n, m;
+    cin >> n >> m;
 
-    vector<int> arr(2, 0);
-    
-    for (int i = 0; i < str.size(); i++)
+    vector<int> arr;
+    for (int i = 0; i < n; i++)
     {
-        while(1)
-        {
-            if (str[i] != str[i + 1]) break;
-            i++;
-        }
-        if (str[i] == '0') arr[0]++;
-        else arr[1]++;
+        int temp;
+        cin >> temp;
+        arr.push_back(temp);
     }
-
-    cout << min(arr[0], arr[1]);
 
     return 0;
 }
