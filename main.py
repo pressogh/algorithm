@@ -1,20 +1,19 @@
-# 1929
-arr = [1 for x in range(1000001)]
+# 10250
+tmp = int(input())
+t2 = 0
 
-for i in range(2, 1000001):
-    if arr[i] == 0:
-        continue
-    for j in range(2 * i, 1000001, i):
-        if arr[j] == 0:
-            continue
-        arr[j] = 0
+while tmp:
+    h, w, n = map(int, input().split())
+    t3 = 0
 
-n, m = input().split()
-n = int(n)
-m = int(m)
+    for i in range(1, w + 1):
+        for j in range(1, h + 1):
+            t2 = 100 * j + i
 
-arr[0] = 0
-arr[1] = 0
-for i in range(n, m + 1):
-    if arr[i] == 1:
-        print(f'{i}')
+            t3 += 1
+            if t3 >= n:
+                break
+        if t3 >= n:
+            break
+    print(t2)
+    tmp -= 1
