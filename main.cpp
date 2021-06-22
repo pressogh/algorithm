@@ -6,10 +6,7 @@ using ld = long double;
 
 int main()
 {
-    double n, m;
-    cin >> n >> m;
-
-    printf("%.12lf", n / m);
+    cin.tie(nullptr), cout.tie(nullptr), ios::sync_with_stdio(false);
 
     return 0;
 }
