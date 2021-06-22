@@ -1,18 +1,20 @@
-# 4673
-def divide(n):
-    ans = n
-    while n:
-        ans += n % 10
-        n = n // 10
-    return ans
+# 1929
+arr = [1 for x in range(1000001)]
 
-arr = [1 for i in range(10000)]
+for i in range(2, 1000001):
+    if arr[i] == 0:
+        continue
+    for j in range(2 * i, 1000001, i):
+        if arr[j] == 0:
+            continue
+        arr[j] = 0
 
-for i in range(1, 10000):
-    if divide(i) >= 9999:
-        break
-    arr[divide(i)] = 0
+n, m = input().split()
+n = int(n)
+m = int(m)
 
-for i in range(1, 9995):
+arr[0] = 0
+arr[1] = 0
+for i in range(n, m + 1):
     if arr[i] == 1:
-        print(i)
+        print(f'{i}')
