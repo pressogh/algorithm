@@ -1,19 +1,14 @@
-# 10250
-tmp = int(input())
-t2 = 0
+# 1065
+n = int(input())
+cnt = 0
 
-while tmp:
-    h, w, n = map(int, input().split())
-    t3 = 0
+for i in range(1, n + 1):
+    arr = list(map(int, str(i)))
 
-    for i in range(1, w + 1):
-        for j in range(1, h + 1):
-            t2 = 100 * j + i
+    if i < 100:
+        cnt += 1
+        continue
+    if arr[0] - arr[1] == arr[1] - arr[2]:
+        cnt += 1
 
-            t3 += 1
-            if t3 >= n:
-                break
-        if t3 >= n:
-            break
-    print(t2)
-    tmp -= 1
+print(cnt)
