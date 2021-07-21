@@ -2,3 +2,4 @@ venv
 .idea
 main.exe
 c_main.exe
+.replit
