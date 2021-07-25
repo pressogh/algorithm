@@ -1,4 +1,4 @@
-# 1032
+# 1037
 import collections  # 가장 많은 숫자, deque 등
 import sys          # 여러줄 입력
 import re           # 문자 제거
@@ -9,10 +9,6 @@ import math         # 수학
 import bisect       # 이진 탐색
 
 n = int(input())
-s = list(input())
-for i in range(n - 1):
-    tmp = list(input())
-    for j in range(len(s)):
-        if s[j] != tmp[j]:
-            s[j] = '?'
-print(''.join(s))
+lst = list(map(int, input().split()))
+lst = sorted(lst)
+print(lst[0] * lst[len(lst) - 1])
