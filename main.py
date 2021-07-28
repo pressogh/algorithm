@@ -1,4 +1,4 @@
-# 10174
+# 10804
 import collections  # 가장 많은 숫자, deque 등
 import sys          # 여러줄 입력
 import re           # 문자 제거
@@ -8,11 +8,8 @@ import itertools    # 순열 조합(permutations, combinations)
 import math         # 수학
 import bisect       # 이진 탐색
 
-n = int(input())
-lst = [input() for _ in range(n)]
-lst = list(map(lambda x: x.upper() == x[::-1].upper(), lst))
-for item in lst:
-    if item == True:
-        print("Yes")
-    else:
-        print("No")
+lst = [i for i in range(1, 21)]
+for i in range(10):
+    n, m = map(int, input().split())
+    lst[n-1:m] = lst[n-1:m][::-1]
+print(*lst, end=' ')
