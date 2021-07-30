@@ -1,4 +1,4 @@
-# 1015
+# 1026
 import collections  # 가장 많은 숫자, deque 등
 import sys          # 여러줄 입력
 import re           # 문자 제거
@@ -10,10 +10,12 @@ import bisect       # 이진 탐색
 import pprint       # 출력
 
 n = int(input())
-lst = list(map(int, input().split()))
-tmp = copy.deepcopy(lst)
-cnt = [0 for _ in range(1001)]
-tmp.sort()
+l1 = list(map(int, input().split()))
+l2 = list(map(int, input().split()))
+
+l1.sort()
+l2.sort(reverse=True)
+ans = 0
 for i in range(n):
-    print(tmp.index(lst[i]) + cnt[tmp.index(lst[i])], end=' ')
-    cnt[tmp.index(lst[i])] += 1
+    ans += l1[i] * l2[i]
+print(ans)
