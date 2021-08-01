@@ -11,7 +11,6 @@ import pprint       # 출력
 
 n = int(input())
 
-lst = [0, 1, 2]
 n1 = 1
 n2 = 1
 n3 = 0
