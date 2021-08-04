@@ -14,8 +14,7 @@ n, m = map(int, input().split())
 def bfs(k):
     q = collections.deque()
     q.append((k, 1))
-
-    cnt = 0
+    
     while q:
         tmp = q.popleft()
         if tmp[0] == m:
