@@ -1,4 +1,4 @@
-# 1463
+# 2457
 import collections      # 가장 많은 숫자, deque 등
 import sys              # 여러줄 입력
 import re               # 문자 제거
@@ -11,12 +11,11 @@ import pprint           # 출력
 from decimal import *   # 임의 정밀도
 
 n = int(input())
-lst = [0 for i in range(n+1)]
+lst = []
+for i in range(n):
+    tmp = list(map(int, input().split()))
+    lst.append(((tmp[0], tmp[1]), (tmp[2], tmp[3])))
 
-for i in range(2, n+1):
-    lst[i] = lst[i-1] + 1
-    if i % 3 == 0:
-        lst[i] = min(lst[i], lst[i // 3] + 1)
-    if i % 2 == 0:
-        lst[i] = min(lst[i], lst[i // 2] + 1)
-print(lst[n])
+lst.sort(lambda x: )
+print(lst)
+
