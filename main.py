@@ -1,4 +1,4 @@
-# 10253
+# 2493
 import collections      # 가장 많은 숫자, deque 등
 import sys              # 여러줄 입력
 import re               # 문자 제거
@@ -10,13 +10,16 @@ import bisect           # 이진 탐색
 import pprint           # 출력
 from decimal import *   # 임의 정밀도
 
-for _ in range(int(input())):
-    a, b = map(int, input().split())
-    while True:
-        tmp = (b - 1) // a + 1
-        a = tmp * a - b
-        b = tmp * b
+input()
+lst = list(map(int, input().split()))
+lst.insert(0, -1)
 
-        if a <= 0:
+ans = []
+for i in range(1, len(lst)):
+    for j in range(i, -1, -1):
+        if lst[i] < lst[j]:
             break
-    print(tmp)
+    ans.append(j)
+
+for i in range(len(ans)):
+    print(ans[i], end=' ')
