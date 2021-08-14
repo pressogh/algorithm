@@ -10,21 +10,16 @@ import bisect           # 이진 탐색
 import pprint           # 출력
 from decimal import *   # 임의 정밀도
 
-# input()
-# lst = list(map(int, input().split()))
-# lst.insert(0, -1)
+input()
+lst = list(map(int, input().split()))
+lst.insert(0, -1)
 
-# ans = []
-# for i in range(1, len(lst)):
-#     for j in range(i, -1, -1):
-#         if lst[i] < lst[j]:
-#             break
-#     ans.append(j)
+ans = []
+for i in range(1, len(lst)):
+    for j in range(i, -1, -1):
+        if lst[i] < lst[j]:
+            break
+    ans.append(j)
 
-# for i in range(len(ans)):
-#     print(ans[i], end=' ')
-n = int(input())
-lst = [int(input()) for i in range(n)]
-lst = sorted(lst)
-for i in range(len(lst)):
-    print(lst[i])
+for i in range(len(ans)):
+    print(ans[i], end=' ')
