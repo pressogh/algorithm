@@ -15,6 +15,7 @@ void print(deque<int> lst)
     {
         cout << lst[i] << ' ';
     }
+    cout << '\n';
 }
 void print(vector<int> lst)
 {
@@ -22,6 +23,7 @@ void print(vector<int> lst)
     {
         cout << lst[i] << ' ';
     }
+    cout << '\n';
 }
 void print(deque<string> lst)
 {
@@ -29,6 +31,7 @@ void print(deque<string> lst)
     {
         cout << lst[i] << ' ';
     }
+    cout << '\n';
 }
 void print(vector<string> lst)
 {
@@ -36,6 +39,7 @@ void print(vector<string> lst)
     {
         cout << lst[i] << ' ';
     }
+    cout << '\n';
 }
 
 void print(deque<deque<int>> lst)
