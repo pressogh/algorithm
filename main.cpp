@@ -1,5 +1,6 @@
-// 15688
+//2493
 #include <bits/stdc++.h>
+#include "print.h"
 
 using namespace std;
 using ll = long long;
@@ -11,34 +12,22 @@ int main()
 
     int n;
     cin >> n;
-    vector<int> arr(2000002, 0);
 
-    for (int i = 0; i < n; i++)
-    {
+    deque<int> arr, ans;
+    for (int i = 0; i < n; i++) {
         int tmp;
         cin >> tmp;
-        arr[tmp + 1000000] += 1;
+        arr.push_front(tmp);
     }
-    for (int i = 0; i < arr.size(); i++)
+    print(arr);
+    int now = 4;
+    while (!arr.empty()) 
     {
-        if (arr[i] != 0)
-        {
-            if (i <= 1000000)
-            {
-                for (int j = 0; j < arr[i]; j++)
-                {
-                    cout << -1 * (1000000 + -1*i) << '\n';
-                }
-            }
-            else
-            {
-                for (int j = 0; j < arr[i]; j++)
-                {
-                    cout << i - 1000000 << '\n';
-                }
-            }
-        }
+        int tmp = arr.front();
+        arr.pop_front();
+        cout << tmp << endl;
     }
 
     return 0;
+
 }
