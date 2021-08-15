@@ -11,8 +11,3 @@ import pprint           # 출력
 from decimal import *   # 임의 정밀도
 import random
 
-n, r = map(int, input().split())
-lst = [1 for _ in range(1001)]
-for i in range(1, 1001):
-    lst[i] = lst[i-1] * i
-print(lst[n] // (lst[r] * lst[n - r]) % 10007)
