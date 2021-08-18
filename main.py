@@ -1,4 +1,4 @@
-# 1049
+# 1083
 import collections      # 가장 많은 숫자, deque 등
 import sys              # 여러줄 입력
 import re               # 문자 제거
@@ -11,14 +11,22 @@ import pprint           # 출력
 from decimal import *   # 임의 정밀도
 import random
 
-n, m = map(int, input().split())
-lst = []
-line_set = float('inf')
-line_one = float('inf')
-for i in range(m):
-    a, b = map(int, input().split())
-    if line_set > a:
-        line_set = a
-    if line_one > b:
-        line_one = b
-print(min(n // 6 * line_set + n % 6 * line_one, (n // 6 + 1) * line_set, line_one * n))
+n = int(input())
+lst = list(map(int, input().split()))
+s = int(input())
+
+i = 0
+while s:
+    tmp = 0
+    if i != lst.index(max(lst[i:i+s])):
+        tmp = max(lst[i:i+s])
+        del lst[lst.index(tmp)]
+        lst.insert(i, tmp)
+        print(lst)
+        
+        s -= 1
+    else:
+        i += 1
+        if i+s >= n:
+            break
+    print(tmp, i, i+s, lst.index(20))

@@ -12,13 +12,9 @@ from decimal import *   # 임의 정밀도
 import random
 
 n, m = map(int, input().split())
-lst = []
-line_set = float('inf')
-line_one = float('inf')
+line_set, line_one = [], []
 for i in range(m):
     a, b = map(int, input().split())
-    if line_set > a:
-        line_set = a
-    if line_one > b:
-        line_one = b
-print(min(n // 6 * line_set + n % 6 * line_one, (n // 6 + 1) * line_set, line_one * n))
+    line_set.append(a)
+    line_one.append(b)
+print(min(n // 6 * min(line_set) + n % 6 * min(line_one), (n // 6 + 1) * min(line_set), min(line_one) * n))
