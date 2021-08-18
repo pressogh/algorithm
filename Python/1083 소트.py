@@ -29,3 +29,5 @@ while s:
     else:
         i += 1
 print(*lst)
+
+# list.index()는 index가 없으면 ValueError가 난다
