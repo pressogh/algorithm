@@ -13,24 +13,24 @@ import random
 
 n = int(input())
 lst = []
+flag = False
 for _ in range(n):
     a, b = map(int, input().split())
     
-    if not lst:
+    if flag == False:
         lst.append([a, b])
-        continue
-    for i in range(len(lst)):
-        flag = False
-        if lst[i][0] <= a <= lst[i][1] or lst[i][0] <= b <= lst[i][1]:
-            if a <= lst[i][0]:
-                lst[i][0] = a
-            if b >= lst[i][1]:
-                lst[i][1] = b
-            flag = True
-            print(a, b)
-        if [a, b] not in lst and flag == False:
-            lst.append([a, b])
-    print(lst)
+        flag = True
+    now = len(lst) - 1
+    if lst[now][0] <= a <= lst[now][1]:
+        lst[now][1] = max(lst[now][1], b)
+    elif lst[now][0] <= b <= lst[now][1]:
+        lst[now][0] = min(lst[now][0], a)
+    elif a <= lst[now][0] and b >= lst[now][1]:
+        lst[now][0] = a
+        lst[now][1] = b
+    elif (a > lst[now][0] and b > lst[now][1]) or (a < lst[now][0] and b < lst[now][1]):
+        lst.append([a, b])
+
 ans = 0
 for i in range(len(lst)):
     ans += lst[i][1] - lst[i][0]
