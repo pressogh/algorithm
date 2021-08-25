@@ -12,10 +12,6 @@ from decimal import *   # 임의 정밀도
 import random
 import functools        # sort key 함수(cmp_to_key)
 
-def issorted(lst):
-    if lst == sorted(lst, reverse=True):
-        return True
-    return False
 def findMax(lst):
     ans = -1
     for i in range(len(lst)):
