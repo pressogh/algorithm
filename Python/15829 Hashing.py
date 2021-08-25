@@ -1,4 +1,5 @@
-# 11866
+# 15829
+# 50퍼 정답
 import collections      # 가장 많은 숫자, deque 등
 import sys              # 여러줄 입력
 import re               # 문자 제거
@@ -12,17 +13,12 @@ from decimal import *   # 임의 정밀도
 import random
 import functools        # sort key 함수(cmp_to_key)
 
-n, k = map(int, input().split())
-lst = [i for i in range(1, n+1)]
-ans = []
-tmp = 0
-while len(lst) != 0:
-    tmp += (k-1)
-    tmp %= len(lst)
-    ans.append(lst[tmp])
-    del lst[tmp]
+def hashFunction(s):
+    ans = 0
+    for i in range(len(s)):
+        ans += (ord(s[i]) - ord('a') + 1) * int(math.pow(31, i))
+    return ans % 1234567891
 
-print("<", end="")
-for i in range(len(ans)-1):
-    print(ans[i], ", ", sep="", end="")
-print(ans[len(ans) - 1], ">", sep="")
+n = int(input())
+s = input()
+print(hashFunction(s))
