@@ -12,16 +12,6 @@ from decimal import *   # 임의 정밀도(getcontext().prec, Decimal)
 import random
 import functools        # sort key 함수(cmp_to_key)
 
-getcontext().prec = 1000001
-a, b, n = map(int, sys.stdin.readline().rstrip().split())
-lst = str(Decimal(a) / Decimal(b)).split(".")
-lst = list(map(list, lst))
-
-if len(lst) == 1:
-    print(0)
-    exit(0)
-
-if len(lst[1]) < n:
-    print(0)
-    exit(0)
-print(lst[1][n - 1])
+for _ in range(int(input())):
+    n, m = map(int, input().split())
+    nList = []
