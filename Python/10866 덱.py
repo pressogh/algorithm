@@ -1,4 +1,4 @@
-# 10026
+# 10866
 import collections          # 가장 많은 숫자, deque 등
 import sys                  # 여러줄 입력
 import re                   # 문자 제거
