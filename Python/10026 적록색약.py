@@ -57,8 +57,7 @@ def bfs(x, y):
             ty = tmp[1] + dy[i]
             if isSafe(tx, ty) and check[tx][ty] == 0 and lst[x][y] == lst[tx][ty]:
                 q.append((tx, ty))
-                check[tx][ty] = cnt
-                
+                check[tx][ty] = cnt    
 
 for i in range(n):
     for j in range(n):
@@ -69,7 +68,6 @@ print(cnt - 1, end=" ")
 
 check = [[0 for _ in range(n)] for _ in range(n)]
 cnt = 1
-
 for i in range(n):
     for j in range(n):
         if check[i][j] == 0:
