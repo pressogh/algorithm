@@ -1,4 +1,4 @@
-# 17219
+# 1365
 import collections          # 가장 많은 숫자, deque 등
 import sys                  # 여러줄 입력
 import re                   # 문자 제거
@@ -12,11 +12,26 @@ from decimal import *       # 임의 정밀도
 import functools            # sort key 함수(cmp_to_key)
 input = sys.stdin.readline
 
-n, m = map(int, input().rstrip().split())
-dic = {}
-for _ in range(n):
-    s, p = map(str, input().rstrip().split())
-    dic[s] = p
-for _ in range(m):
-    s = input().rstrip()
-    print(dic[s])
+def binSearch(n, lst):
+    left, right = 0, len(lst) - 1
+    while left < right:
+        mid = (left + right) // 2
+        if lst[mid] == n:
+            return mid
+
+        if lst[mid] > n:
+            right = mid - 1
+        else:
+            left = mid + 1
+    return -1
+
+input()
+lst = list(map(int, input().rstrip().split()))
+tmp = [lst[0]]
+
+for i in range(1, len(lst)):
+    if lst[i] > tmp[len(tmp) - 1]:
+        tmp.append(lst[i])
+    else:
+        tmp[binSearch(lst[i], tmp)] = lst[i]
+print(len(lst) - len(tmp))

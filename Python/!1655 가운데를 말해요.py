@@ -30,7 +30,7 @@ lst = []
 
 for i in range(n):
     tmp = int(sys.stdin.readline())
-    idx = binSearch(tmp, lst)
+    idx = arch(tmp, lst)
 
     lst.insert(idx, tmp)
     print(lst[(len(lst) - 1) // 2])
