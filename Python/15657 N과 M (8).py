@@ -1,4 +1,4 @@
-# 15663
+# 15657
 import collections          # 가장 많은 숫자, deque 등
 import sys                  # 여러줄 입력
 import re                   # 문자 제거
@@ -15,9 +15,5 @@ input = sys.stdin.readline
 n, m = map(int, input().rstrip().split())
 lst = sorted(list(map(int, input().rstrip().split())))
 
-ans = set()
-for item in list(itertools.permutations(lst, m)):
-    ans.add(item)
-
-for item in sorted(list(ans)):
+for item in list(itertools.combinations_with_replacement(lst, r=m)):
     print(*item)
