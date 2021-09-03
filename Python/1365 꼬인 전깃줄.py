@@ -12,19 +12,6 @@ from decimal import *       # 임의 정밀도
 import functools            # sort key 함수(cmp_to_key)
 input = sys.stdin.readline
 
-def binSearch(n, lst):
-    left, right = 0, len(lst) - 1
-    while left < right:
-        mid = (left + right) // 2
-        if lst[mid] == n:
-            return mid
-
-        if lst[mid] > n:
-            right = mid - 1
-        else:
-            left = mid + 1
-    return -1
-
 input()
 lst = list(map(int, input().rstrip().split()))
 tmp = [lst[0]]
@@ -33,5 +20,6 @@ for i in range(1, len(lst)):
     if lst[i] > tmp[len(tmp) - 1]:
         tmp.append(lst[i])
     else:
-        tmp[binSearch(lst[i], tmp)] = lst[i]
+        tmp[bisect.bisect_left(tmp, lst[i])] = lst[i]
+
 print(len(lst) - len(tmp))
