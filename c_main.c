@@ -1,30 +1,18 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <time.h>
-#include <ctype.h>
-#include <math.h>
-#include <stdbool.h>
 
 int main()
 {
-    printf("(1)\n");
-    for (int i = 'A'; i <= 'Z'; i++)
-    {
-        for (int j = 'A'; j <= i; j++)
-        {
-            printf("%c", j);
-        }
-        printf("\n");
-    }
+    int n;
+    scanf("%d", &n);
 
-    printf("\n");
-    printf("(2)\n");
-    for (int i = 'Z'; i >= 'A'; i--)
-    {
-        for (int j = 'A'; j <= i; j++)
-        {
-            printf("%c", j);
+    int tmp = 1;
+    for (int i = 0; i < n + 1; i++) {
+        for (int j = 0; j < n - i; j++) {
+            printf(" ");
+        }
+        for (int j = 0; j < i; j++) {
+            printf("%d ", tmp++);
+            if (tmp > 9) tmp = 0;
         }
         printf("\n");
     }
