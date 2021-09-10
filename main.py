@@ -1,4 +1,4 @@
-# 1932
+# 3745
 import collections          # 가장 많은 숫자, deque 등
 import sys                  # 여러줄 입력
 import re                   # 문자 제거
@@ -14,11 +14,18 @@ import heapq                # 우선순위 큐
 import random
 input = sys.stdin.readline
 
-lst = [list(map(int, input().split())) for _ in range(int(input()))]
+def lis(lst):
+    ans = [float('-inf')]
+    for i in range(len(lst)):
+        if lst[i] > ans[len(ans) - 1]:
+            ans.append(lst[i])
 
-for i in range(1, len(lst)):
-    lst[i][0] += lst[i - 1][0]
-    lst[i][len(lst[i]) - 1] += lst[i - 1][len(lst[i - 1]) - 1]
-    for j in range(1, len(lst[i]) - 1):
-        lst[i][j] += max(lst[i - 1][j - 1], lst[i - 1][j])
-print(max(lst[-1]))
+        tmp = bisect.bisect_left(ans, lst[i])
+        if ans[tmp - 1] < lst[i] and ans[tmp] > lst[i]:
+            ans[tmp] = lst[i]
+    return len(ans) - 1
+    
+while True:
+    input()
+    lst = list(map(int, input().split()))
+    print(lis(lst))
