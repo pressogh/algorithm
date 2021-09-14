@@ -1,20 +1,15 @@
 #include <stdio.h>
 
-int main()
+int main(void)
 {
-    int n;
-    scanf("%d", &n);
-
-    int tmp = 1;
-    for (int i = 0; i < n + 1; i++) {
-        for (int j = 0; j < n - i; j++) {
-            printf(" ");
-        }
-        for (int j = 0; j < i; j++) {
-            printf("%d ", tmp++);
-            if (tmp > 9) tmp = 0;
-        }
-        printf("\n");
+    long long fibo[90] = {0, 1};
+    for (int i = 2; i < 90; i++)
+    {
+        fibo[i] = fibo[i-1] + fibo[i-2];
+    }
+    for (int j = 0; j < sizeof(fibo); j++)
+    {
+        printf("%lli\n", fibo[j]);
     }
 
     return 0;
