@@ -1,16 +1,36 @@
 #include <stdio.h>
+#include <math.h>
 
-int main(void)
+int getLength(int n)
 {
-    long long fibo[90] = {0, 1};
-    for (int i = 2; i < 90; i++)
+    int ans = 0;
+    while (n)
     {
-        fibo[i] = fibo[i-1] + fibo[i-2];
+        n /= 10;
+        ans++;
     }
-    for (int j = 0; j < sizeof(fibo); j++)
-    {
-        printf("%lli\n", fibo[j]);
+
+    return ans;
+}
+
+int main()
+{
+    int n;
+    scanf("%d", &n);
+    
+    int nn = n;
+    int ans = 2140000000;
+    int length = getLength(n);
+    
+    int tmp;
+    while (1) {
+        tmp = nn % 10;
+        nn /= 10;
+        nn += pow(10, length - 1) * tmp;
+        if (nn == n / 3 * 2 && ans > nn) ans = nn;
+        if (nn == n) break;
     }
+    printf("%d\n", ans);
 
     return 0;
 }
