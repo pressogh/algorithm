@@ -1,4 +1,4 @@
-# 14940
+# 4095
 import collections          # 가장 많은 숫자, deque 등
 import sys                  # 여러줄 입력
 import re                   # 문자 제거
@@ -14,47 +14,30 @@ import heapq                # 우선순위 큐
 import random
 input = sys.stdin.readline
 
-n, m = map(int, input().split())
-lst = [list(map(int, input().split())) for _ in range(n)]
+def myPprint(lst):
+    for i in range(len(lst)):
+        for j in range(len(lst[i])):
+            print(lst[i][j], end=' ')
+        print()
 
-def isSafe(x, y):
-    if 0 <= x < n and 0 <= y < m:
-        return True
-    return False
+def findMax(lst):
+    ans = -1
+    for i in range(len(lst)):
+        for j in range(len(lst[i])):
+            if lst[i][j] > ans:
+                ans = lst[i][j]
+    return ans
 
-dx = [0, 1, 0, -1]
-dy = [1, 0, -1, 0]
-def bfs(x, y):
-    q = collections.deque()
-    q.append((x, y))
-    lst[x][y] = 0
+while True:
+    n, m = map(int, input().split())
+    if n == m == 0:
+        break
 
-    while q:
-        tmp = q.popleft()
-        for i in range(4):
-            nx = tmp[0] + dx[i]
-            ny = tmp[1] + dy[i]
-            if isSafe(nx, ny):
-                if lst[nx][ny] == -1:
-                    lst[nx][ny] = lst[tmp[0]][tmp[1]] + 1
-                    q.append((nx, ny))
+    lst = [list(map(int, input().split())) for _ in range(n)]
 
-s = ()
-for i in range(len(lst)):
-    for j in range(len(lst[i])):
-        if lst[i][j] == 1:
-            lst[i][j] = -1
-        elif lst[i][j] == 2:
-            lst[i][j] = -2
-            s = (i, j)
-        else:
-            lst[i][j] = float('inf')
-
-bfs(s[0], s[1])
-for i in range(len(lst)):
-    for j in range(len(lst[i])):
-        if lst[i][j] == float('inf'):
-            print(0, end=" ")
-        else:
-            print(lst[i][j], end=" ")
-    print()
+    for i in range(1, n):
+        for j in range(1, m):
+            if lst[i][j] > 0 and (lst[i - 1][j] > 0 and lst[i][j - 1] > 0 and lst[i - 1][j - 1] > 0):
+                lst[i][j] = lst[i - 1][j - 1] + 1
+    print(findMax(lst))
+    myPprint(lst)
