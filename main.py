@@ -14,30 +14,14 @@ import heapq                # 우선순위 큐
 import random
 input = sys.stdin.readline
 
-def myPprint(lst):
-    for i in range(len(lst)):
-        for j in range(len(lst[i])):
-            print(lst[i][j], end=' ')
-        print()
+x, y, z = map(int, input().split())
 
-def findMax(lst):
-    ans = -1
-    for i in range(len(lst)):
-        for j in range(len(lst[i])):
-            if lst[i][j] > ans:
-                ans = lst[i][j]
-    return ans
-
-while True:
-    n, m = map(int, input().split())
-    if n == m == 0:
-        break
-
-    lst = [list(map(int, input().split())) for _ in range(n)]
-
-    for i in range(1, n):
-        for j in range(1, m):
-            if lst[i][j] > 0 and (lst[i - 1][j] > 0 and lst[i][j - 1] > 0 and lst[i - 1][j - 1] > 0):
-                lst[i][j] = lst[i - 1][j - 1] + 1
-    print(findMax(lst))
-    myPprint(lst)
+def fpow(x, y):
+    if y == 0:
+        return 1
+    ans = fpow(x, y // 2)
+    if not (y % 2):
+        return ans * ans * x
+    else:
+        return ans * ans
+print(fpow(x, y) % z)
