@@ -15,11 +15,19 @@ import random
 input = sys.stdin.readline
 
 n = int(input())
-items = {}
-for i in range(n):
-    s1, s2 = input().split()
-    if not items.get(s1):
-        items[s1] = [s2]
-    else:
-        items[s1].append(s2)
-print(items)
+lst = [list(map(int, input().rstrip().split())) for _ in range(n)]
+
+feed = [[] for _ in range(40 + 1)]
+
+def getFeedLength(x, y):
+    for i in range(n):
+        for j in range(n):
+            if not lst[i][j] == 0 and not lst[i][j] == 9:
+                feed[abs(x - i) + abs(y - j)].append((i, j, lst[i][j]))
+
+getFeedLength(2, 2)
+for item in feed:
+    item.sort(key=lambda x: (x[0], x[1]))
+pprint(feed)
+
+# 갈 수 있는 점을 bfs로 탐색하고 그 점까지의 거리를 구한 후 정렬

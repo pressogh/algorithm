@@ -1,36 +1,20 @@
 #include <stdio.h>
 #include <math.h>
-
-int getLength(int n)
-{
-    int ans = 0;
-    while (n)
-    {
-        n /= 10;
-        ans++;
-    }
-
-    return ans;
-}
+#include <stdlib.h>
+#include <string.h>
 
 int main()
 {
-    int n;
-    scanf("%d", &n);
-    
-    int nn = n;
-    int ans = 2140000000;
-    int length = getLength(n);
-    
-    int tmp;
-    while (1) {
-        tmp = nn % 10;
-        nn /= 10;
-        nn += pow(10, length - 1) * tmp;
-        if (nn == n / 3 * 2 && ans > nn) ans = nn;
-        if (nn == n) break;
+    int x = 1, y = 3, z = 0;
+    if (x < y && x < z) {
+        printf("minnum: x");
     }
-    printf("%d\n", ans);
+    else if (y < x && y < z) {
+        printf("minnum: y");
+    }
+    else {
+        printf("minnum: z");
+    }
 
     return 0;
 }
