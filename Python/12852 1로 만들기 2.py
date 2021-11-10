@@ -14,6 +14,8 @@ import heapq                # 우선순위 큐
 import random
 input = sys.stdin.readline
 
+
+# backtrack에 내가 온 길을 저장
 def bfs(n):
     q = collections.deque()
     q.append((n, 0))
