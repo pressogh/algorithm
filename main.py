@@ -14,28 +14,3 @@ import heapq                # 우선순위 큐
 import random
 input = sys.stdin.readline
 
-n = int(input())
-lst = [i for i in range(n + 1)]
-
-for i in range(2, n + 1):
-    if lst[i] == 0:
-        continue
-    for j in range(i * 2, n + 1, i):
-        lst[j] = 0
-lst[1] = 0
-lst = [item for item in lst if item != 0]
-
-ans, sum = 0, 0
-left, right = 0, 0
-while left <= right:
-    if sum < n:
-        if right >= len(lst):
-            break
-        sum += lst[right]
-        right += 1
-    else:
-        if sum == n:
-            ans += 1
-        sum -= lst[left]
-        left += 1
-print(ans)
