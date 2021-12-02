@@ -1,4 +1,4 @@
-# 1422
+# 5635
 import collections          # 가장 많은 숫자, deque 등
 import sys                  # 여러줄 입력
 import re                   # 문자 제거
@@ -14,3 +14,11 @@ import heapq                # 우선순위 큐
 import random
 input = sys.stdin.readline
 
+lst = []
+for _ in range(int(input())):
+    a, b, c, d = map(str, input().split())
+    lst.append([a, b, c, d])
+
+lst.sort(key=lambda x: (int(x[3]), int(x[2]), int(x[1])))
+print(lst[-1][0])
+print(lst[0][0])
