@@ -1,4 +1,4 @@
-# 5635
+# 16236
 import collections          # 가장 많은 숫자, deque 등
 import sys                  # 여러줄 입력
 import re                   # 문자 제거
@@ -14,14 +14,21 @@ import heapq                # 우선순위 큐
 import random
 input = sys.stdin.readline
 
-n = int(input())
-lst = list(map(int, input().rstrip().split()))
-data = {}
-target = int(input())
+lst = []
+for _ in range(int(input())):
+    n, m = map(int, input().split())
 
-for i in range(n):
-    data[i - 1] = []
+    if n == 0:
+        lst.append([float('inf'), n, m])
+    else:
+        lst.append([m / n, n, m])
 
-for i in range(n):
-        data[lst[i]].append(i)
-print(data)
+lst.sort()
+ans, t = 0, 0
+for i in range(len(lst)):
+    ans += lst[i][1] * t + lst[i][2]
+    ans %= 400000
+
+    t = ans
+
+print(ans)
