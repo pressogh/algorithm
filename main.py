@@ -14,11 +14,14 @@ import heapq                # 우선순위 큐
 import random
 input = sys.stdin.readline
 
-lst = []
-for _ in range(int(input())):
-    a, b, c, d = map(str, input().split())
-    lst.append([a, b, c, d])
+n = int(input())
+lst = list(map(int, input().rstrip().split()))
+data = {}
+target = int(input())
 
-lst.sort(key=lambda x: (int(x[3]), int(x[2]), int(x[1])))
-print(lst[-1][0])
-print(lst[0][0])
+for i in range(n):
+    data[i - 1] = []
+
+for i in range(n):
+        data[lst[i]].append(i)
+print(data)
