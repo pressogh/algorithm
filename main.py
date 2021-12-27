@@ -14,21 +14,50 @@ import heapq                # 우선순위 큐
 import random
 input = sys.stdin.readline
 
-lst = []
-for _ in range(int(input())):
-    n, m = map(int, input().split())
+n = int(input())
+lst = {}
+indegree = {}
 
-    if n == 0:
-        lst.append([float('inf'), n, m])
+for i in range(n):
+    s1, s2 = input().split()
+    if s1 in lst:
+        lst[s1].append(s2)
+        indegree[s2] += 1
     else:
-        lst.append([m / n, n, m])
+        lst[s1] = [s2]
+        indegree[s1] = 0
+        indegree[s2] = 1
+    if s2 not in lst:
+        lst[s2] = []
 
-lst.sort()
-ans, t = 0, 0
-for i in range(len(lst)):
-    ans += lst[i][1] * t + lst[i][2]
-    ans %= 400000
+q = []
+res = []
+for key in indegree.keys():
+    if indegree[key] == 0:
+        q.append([0, key])
+        res.append([0, key])
 
-    t = ans
+q = collections.deque(sorted(q))
+res.sort()
 
-print(ans)
+for i in range(len(indegree.keys())):
+    if not q:
+        print(-1)
+        exit(0)
+
+    q = collections.deque(sorted(list(q)))
+    tmp = q[0]
+    q.popleft()
+
+    t = []
+    for item in lst[tmp[1]]:
+        indegree[item] -= 1
+        tmp[0] += 1
+        if indegree[item] == 0:
+            t.append(item)
+
+    for item in sorted(t):
+        q.append([tmp[0], item])
+        res.append([tmp[0], item])
+
+print(res)
