@@ -14,24 +14,6 @@ import heapq                # 우선순위 큐
 import random
 input = sys.stdin.readline
     
-n, l, k = map(int, input().split())
-lst = []
-for i in range(n):
-    m1, m2 = map(int, input().split())
-    lst.append((m1, m2))
+from datetime import datetime, date, timedelta
 
-lst.sort(key=lambda x: (x[1], x[0]))
-score = 0
-cnt = 0
-
-for item in lst:
-    if cnt >= k:
-        break
-    if item[1] <= l:
-        score += 140
-        cnt += 1
-    elif item[0] <= l:
-        score += 100
-        cnt += 1
-
-print(score)
+print(datetime.now().time())
