@@ -1,4 +1,4 @@
-// 23048
+// 2589
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -46,29 +46,30 @@ int bfs(pair<int, int> start) {
 int main()
 {
     cin.tie(nullptr), cout.tie(nullptr), ios::sync_with_stdio(false);
-#ifdef _DEBUG
+#ifdef NDEBUG
     freopen("input.txt", "r", stdin);
 #endif
 
-    int n; cin >> n;
-    vector<ll> arr(n + 1, 0);
-    arr[0] = 0; arr[1] = 1;
+    cin >> n >> m;
 
-    ll now_col = 2;
-    for (int i = 2; i <= n; i++) {
-        if (arr[i] == 0) {
-            for (int j = i; j <= n; j += i) {
-                arr[j] = now_col;
-            }
-            now_col++;
+    for (int i = 0; i < n; i++) {
+        string tmp; cin >> tmp;
+        arr.push_back(tmp);
+    }
+
+    vector<pair<int, int>> lst;
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < m; j++) {
+            if (arr[i][j] == 'L') lst.push_back({i, j});
         }
     }
 
-
-    cout << now_col - 1 << '\n';
-    for (int i = 1; i <= n; i++) {
-        cout << arr[i] << ' ';
+    int ans = INT_MIN;
+    for (int i = 0; i < lst.size(); i++) {
+        int tmp = bfs(lst[i]);
+        if (ans < tmp) ans = tmp;
     }
+    cout << ans;
 
     return 0;
 }
