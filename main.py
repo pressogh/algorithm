@@ -13,7 +13,18 @@ import functools            # sort key 함수(cmp_to_key)
 import heapq                # 우선순위 큐
 import random
 input = sys.stdin.readline
-    
-from datetime import datetime, date, timedelta
 
-print(datetime.now().time())
+# 0: 호수, 1: 그냥 땅, 2: 배양액을 뿌릴 수 있는 땅
+n, m, g, r = map(int, input().split())
+arr = [list(map(int, input().rstrip().split())) for _ in range(n)]
+
+ground = []
+for i in range(len(arr)):
+    for j in range(len(arr[i])):
+        if arr[i][j] == 2:
+            ground.append((i, j))
+
+g_ground = list(itertools.combinations(ground, r=g))
+r_ground = list(itertools.combinations(ground, r=r))
+print(g_ground)
+print(r_ground)
