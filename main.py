@@ -1,4 +1,4 @@
-# 18809
+# 1697
 import collections          # 가장 많은 숫자, deque 등
 import sys                  # 여러줄 입력
 import re                   # 문자 제거
@@ -10,75 +10,29 @@ import bisect               # 이진 탐색
 from pprint import pprint   # 출력
 from decimal import *       # 임의 정밀도
 import functools            # sort key 함수(cmp_to_key)
-import heapq                # 우선순위 큐
-import random
-input = sys.stdin.readline
 
-n, m = 0, 0
+n, m = map(int, input().split())
 
-def isSafe(x, y):
-    return 0 <= x < n and 0 <= y < m
-
-dx = [0, 1, 0, -1]
-dy = [1, 0, -1, 0]
-def bfs(lst, g, r):
+def bfs(start):
     q = collections.deque()
-    check = [[[-1, ''] for _ in range(m)] for _ in range(n)]
-
-    for item in g:
-        coor = list(item)
-        q.append([coor[0], coor[1]])
-        check[coor[0]][coor[1]][0] = 0
-        check[coor[0]][coor[1]][1] = 'g'
-    for item in r:
-        coor = list(item)
-        q.append([coor[0], coor[1]])
-        check[coor[0]][coor[1]][0] = 0
-        check[coor[0]][coor[1]][1] = 'r'
+    q.append((start, 0))
+    check = [False for _ in range(200002)]
 
     while q:
-        x, y = q[0]
-        q.popleft()
-
-        for i in range(4):
-            nx, ny = x + dx[i], y + dy[i]
-            if isSafe(nx, ny) and lst[nx][ny] != 0 and check[x][y][1] != 'f':
-                if check[nx][ny][0] == check[x][y][0] + 1 and ((check[nx][ny][1] == 'r' and check[x][y][1] == 'g') or (check[nx][ny][1] == 'g' and check[x][y][1] == 'r')):
-                    check[nx][ny][1] = 'f'
-                    continue
-                if check[nx][ny][0] == -1:
-                    check[nx][ny][0] = check[x][y][0] + 1
-                    check[nx][ny][1] = check[x][y][1]
-                    q.append([nx, ny])
-
-    tans = 0
-    for i in range(n):
-        for j in range(m):
-            if check[i][j][1] == 'f':
-                tans += 1
-    return tans
-
-# 0: 호수, 1: 그냥 땅, 2: 배양액을 뿌릴 수 있는 땅
-n, m, g, r = map(int, input().split())
-arr = [list(map(int, input().rstrip().split())) for _ in range(n)]
-
-ground = []
-for i in range(len(arr)):
-    for j in range(len(arr[i])):
-        if arr[i][j] == 2:
-            ground.append((i, j))
+        tmp = q.popleft()
+        if tmp[0] == m:
+            print(tmp[1])
+            exit(0)
+        
+        if not check[tmp[0] + 1] and 0 <= tmp[0] + 1 <= 100000: 
+            q.append((tmp[0] + 1, tmp[1] + 1))
+            check[tmp[0] + 1] = True
+        if not check[tmp[0] - 1] and 0 <= tmp[0] - 1 <= 100000:
+            q.append((tmp[0] - 1, tmp[1] + 1))
+            check[tmp[0] - 1] = True
 
 
-ans = 0
-ground = set(ground)
-for green in itertools.combinations(ground, r=g):
-    red_ground = list(ground - set(green))
-    for red in itertools.combinations(red_ground, r=r):
-        res = bfs(arr, list(green), list(red))
-        if res > ans:
-            ans = res
-
-
-# bfs(arr, ((4, 1), (3, 2)), ((3, 0), (2, 2)))
-
-print(ans)
+        if not check[tmp[0] * 2] and 0 <= tmp[0] * 2 <= 100000:
+            q.append((tmp[0] * 2, tmp[1] + 1))
+            check[tmp[0] * 2] = True
+bfs(n)
