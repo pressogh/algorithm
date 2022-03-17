@@ -19,20 +19,20 @@ def bfs(start):
     check = [False for _ in range(200002)]
 
     while q:
-        tmp = q.popleft()
-        if tmp[0] == m:
-            print(tmp[1])
+        num, cnt = q.popleft()
+        if num == m:
+            print(cnt)
             exit(0)
-        
-        if not check[tmp[0] + 1] and 0 <= tmp[0] + 1 <= 100000: 
-            q.append((tmp[0] + 1, tmp[1] + 1))
-            check[tmp[0] + 1] = True
-        if not check[tmp[0] - 1] and 0 <= tmp[0] - 1 <= 100000:
-            q.append((tmp[0] - 1, tmp[1] + 1))
-            check[tmp[0] - 1] = True
+
+        if not check[num + 1] and 0 <= num + 1 <= 100000:
+            q.append((num + 1, cnt + 1))
+            check[num + 1] = True
+        if not check[num - 1] and 0 <= num - 1 <= 100000:
+            q.append((num - 1, cnt + 1))
+            check[num - 1] = True
+        if not check[num * 2] and 0 <= num * 2 <= 100000:
+            q.append((num * 2, cnt + 1))
+            check[num * 2] = True
 
 
-        if not check[tmp[0] * 2] and 0 <= tmp[0] * 2 <= 100000:
-            q.append((tmp[0] * 2, tmp[1] + 1))
-            check[tmp[0] * 2] = True
 bfs(n)
