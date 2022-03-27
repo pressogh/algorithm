@@ -36,3 +36,14 @@ import functools            # sort key 함수(cmp_to_key)
 
 
 # bfs(n)
+
+lst = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+
+for i in range(3):
+    for j in range(i):
+        tmp = lst[i][j]
+        lst[i][j] = lst[j][i]
+        lst[j][i] = tmp
+
+for i in range(3):
+    print(lst[i])
