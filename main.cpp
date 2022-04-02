@@ -61,3 +61,43 @@ int main()
 
     return 0;
 }
+
+
+#include <string>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+int solution(vector<int> citations) {
+    int answer = 0;
+    vector<int> temp(citations.size() + 1);
+    
+    int k = 0;
+    for (int i = 0; i < citations.size(); i++) {
+        if (citations[i] != 0) k = 1;
+    }
+    
+    if (k == 0) return 0;
+    
+    for (int i = 0; i < citations.size(); i++) {
+        for (int j = 0; j < citations.size(); j++) {
+            if (citations[i] <= citations[j]) temp[i]++;
+        }
+    }
+    
+    vector<int> n;
+    
+    for (int i = 0; i < temp.size(); i++) {
+        if (temp[i] <= citations[i]) {
+            n.push_back(temp[i]);
+        }
+    }
+    
+    stable_sort(n.begin(), n.end(), greater<int>());
+    
+    answer = n[0];
+    
+    
+    return answer;
+}

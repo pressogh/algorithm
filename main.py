@@ -10,40 +10,13 @@ import bisect               # 이진 탐색
 from pprint import pprint   # 출력
 from decimal import *       # 임의 정밀도
 import functools            # sort key 함수(cmp_to_key)
+import heapq
+input = sys.stdin.readline
 
-# n, m = map(int, input().split())
+t = int(input())
 
-# def bfs(start):
-#     q = collections.deque()
-#     q.append((start, 0))
-#     check = [False for _ in range(200002)]
-
-#     while q:
-#         num, cnt = q.popleft()
-#         if num == m:
-#             print(cnt)
-#             exit(0)
-
-#         if not check[num + 1] and 0 <= num + 1 <= 100000:
-#             q.append((num + 1, cnt + 1))
-#             check[num + 1] = True
-#         if not check[num - 1] and 0 <= num - 1 <= 100000:
-#             q.append((num - 1, cnt + 1))
-#             check[num - 1] = True
-#         if not check[num * 2] and 0 <= num * 2 <= 100000:
-#             q.append((num * 2, cnt + 1))
-#             check[num * 2] = True
-
-
-# bfs(n)
-
-lst = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
-
-for i in range(3):
-    for j in range(i):
-        tmp = lst[i][j]
-        lst[i][j] = lst[j][i]
-        lst[j][i] = tmp
-
-for i in range(3):
-    print(lst[i])
+q = []
+for i in range(t):
+    n = int(input())
+    heapq.heappush(q, n)
+    print(q)
