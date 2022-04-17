@@ -13,10 +13,38 @@ import functools            # sort key 함수(cmp_to_key)
 import heapq
 input = sys.stdin.readline
 
-t = int(input())
 
-q = []
-for i in range(t):
-    n = int(input())
-    heapq.heappush(q, n)
-    print(q)
+# n, m = map(int, input().split())
+
+# lst = []
+# def backtrack():
+#     if len(lst) == m:
+#         print(" ".join(map(str, lst)))
+#         return
+
+#     for i in range(1, n + 1):
+#         lst.append(i)
+#         backtrack()
+#         lst.pop()
+
+
+# backtrack()
+
+n, m = map(int, input().split())
+lst = list(map(int, input().split()))
+
+ans = 0
+def backtrack(count, total):
+    global ans
+    if count == n:
+        if total == m:
+            ans += 1
+        return
+    backtrack(count + 1, total)
+    backtrack(count + 1, total + lst[count])
+
+backtrack(0, 0)
+
+if m == 0:
+    ans -= 1
+print(ans)
