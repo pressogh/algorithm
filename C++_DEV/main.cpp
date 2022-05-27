@@ -13,6 +13,18 @@ using pii = pair<int, int>;
 using dv = vector<vector<int>>;
 void pv(const vector<int>& arr) { for (auto item : arr) cout << item << ' '; cout << '\n'; }
 
+typedef struct Point {
+    int dist;
+    int x;
+    int y;
+} Point;
+
+typedef struct cmp {
+    bool operator()(Point const& p1, Point const& p2) {
+        return p1.dist > p2.dist;
+    }
+} cmp;
+
 int k;
 bool isSafe(int x, int y) {
     return (0 <= x and x < k) and (0 <= y and y < k);
@@ -21,14 +33,14 @@ bool isSafe(int x, int y) {
 int dx[] = {0, 1, 0, -1};
 int dy[] = {1, 0, -1, 0};
 int bfs(const dv& arr) {
-    queue<pii> q;
-    q.push({0, 0});
+    priority_queue<Point, vector<Point>, cmp> q;
+    q.push({arr[0][0], 0, 0});
 
     dv dist(k, vector<int>(k, INT_MAX));
     dist[0][0] = arr[0][0];
 
     while (!q.empty()) {
-        auto [x, y] = q.front();
+        auto [nowDist, x, y] = q.top();
         q.pop();
 
         for (int i = 0; i < 4; i++) {
@@ -37,7 +49,7 @@ int bfs(const dv& arr) {
 
             if (isSafe(nx, ny) and dist[nx][ny] > dist[x][y] + arr[nx][ny]) {
                 dist[nx][ny] = dist[x][y] + arr[nx][ny];
-                q.push({nx, ny});
+                q.push({dist[nx][ny], nx, ny});
             }
         }
     }
