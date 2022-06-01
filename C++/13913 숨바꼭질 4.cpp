@@ -1,6 +1,9 @@
 // 13913
+/*
+ * n에서 m으로 가는 최소 횟수와 방문 경로를 구하는 문제
+ * 자신의 이전 위치를 저장해두고 현재 위치가 m일 경우 이전 위치를 따라가며 ans배열에다 넣어준 뒤 뒤집어서 출력하였다.
+ */
 #include <bits/stdc++.h>
-
 #define in :
 using namespace std;
 using ll = long long;
@@ -36,7 +39,6 @@ int main()
                 ans.push_back(parent[num]);
                 num = parent[num];
             }
-
             break;
         }
 
