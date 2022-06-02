@@ -1,4 +1,8 @@
 // 1520
+/*
+ * 내리막길로만 내려가서 n - 1, m - 1에 도달하는 경우의 수를 구하는 문제
+ * 그냥 dfs만 돌리면 시간 초과가 나므로 dp를 사용하여 이미 탐색한 경로의 경우의 수를 이용하도록 하였다.
+ */
 #include <bits/stdc++.h>
 
 #define in :
@@ -10,7 +14,6 @@ using dv = vector<vector<int>>;
 void pv(const vector<int>& arr) { for (auto item : arr) cout << item << ' '; cout << '\n'; }
 
 int n, m;
-int ans = 1;
 dv arr, check;
 
 bool isSafe(int x, int y) {
@@ -19,21 +22,23 @@ bool isSafe(int x, int y) {
 
 int dx[] = {0, 1, 0, -1};
 int dy[] = {1, 0, -1, 0};
-void dfs(int x, int y) {
+int dfs(int x, int y) {
     if (x == n - 1 and y == m - 1) {
-        ans++;
-        return;
+        return 1;
     }
 
+    if (check[x][y] != -1) return check[x][y];
+
+    check[x][y] = 0;
     for (int i = 0; i < 4; i++) {
         int nx = x + dx[i];
         int ny = y + dy[i];
         if (isSafe(nx, ny) and arr[x][y] > arr[nx][ny]) {
-            check[nx][ny] = ans;
-            dfs(nx, ny);
-            check[nx][ny] = 0;
+            check[x][y] += dfs(nx, ny);
         }
     }
+
+    return check[x][y];
 }
 
 int main()
@@ -46,15 +51,14 @@ int main()
 
     cin >> n >> m;
     arr.resize(n, vector<int>(m, 0));
-    check.resize(n, vector<int>(m, 0));
+    check.resize(n, vector<int>(m, -1));
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < m; j++) {
             cin >> arr[i][j];
         }
     }
 
-    dfs(0, 0);
-    cout << ans;
+    cout << dfs(0, 0);
 
     return 0;
 }
