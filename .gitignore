@@ -10,8 +10,4 @@ temp
 .vscode
 cmake-build-debug
 
-c_main.c
-C++_DEV/main.cpp
-main.py
 *.pdf
-.mermaid
