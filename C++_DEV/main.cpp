@@ -1,4 +1,4 @@
-// 1062
+// 2292
 #include <bits/stdc++.h>
 
 #define in :
@@ -15,7 +15,9 @@ int main()
     freopen("../input.txt", "r", stdin);
 #endif
 
-    cout << "Hello World!" << endl;
+    int n, m;
+    vector<int> l;
 
-    return 0;
+    cin >> n >> m;
+
 }
