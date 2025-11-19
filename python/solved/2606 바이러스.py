@@ -1,39 +1,35 @@
-# 2606
-import collections          # 가장 많은 숫자, deque 등
-import sys                  # 여러줄 입력
-import re                   # 문자 제거
-import string               # 문자열 함수
-import copy                 # 깊은 복사
-import itertools            # 순열 조합(permutations, combinations)
-import math                 # 수학
-import bisect               # 이진 탐색
-from pprint import pprint   # 출력
-from decimal import *       # 임의 정밀도
-import functools            # sort key 함수(cmp_to_key)
+import sys, os, io, atexit
 
-n = int(input())
-m = int(input())
+input = lambda: sys.stdin.readline().rstrip('\r\n')
+stdout = io.BytesIO()
+sys.stdout.write = lambda s: stdout.write(s.encode("ascii"))
+atexit.register(lambda: os.write(1, stdout.getvalue()))
 
-lst = [[] for _ in range(n + 1)]
-check = [False for _ in range(n + 1)]
+graph = []
+res = set()
 
-def bfs():
-    q = collections.deque()
-    q.append(1)
-    check[1] = True
+def recursive(node):
+    global graph, res
+    res.add(node)
 
-    while q:
-        tmp = q.popleft()
-        for i in range(len(lst[tmp])):
-            if not check[lst[tmp][i]]:
-                q.append(lst[tmp][i])
-                check[lst[tmp][i]] = True
-
-for i in range(m):
-    a, b = map(int, input().split())
-    lst[a].append(b)
-    lst[b].append(a)
+    if len(graph[node]) == 0:
+        return
     
-bfs()
-check = [item for item in check if item != False]
-print(len(check) - 1)
+    for item in graph[node]:
+        if item not in res:
+            recursive(item)
+
+def solve():
+    n, m = int(input()), int(input())
+    global graph
+    graph = [set() for _ in range(n + 1)]
+    for _ in range(m):
+        c1, c2 = map(int, input().split())
+        graph[c1].add(c2)
+        graph[c2].add(c1)
+    
+    recursive(1)
+    print(len(res) - 1)
+
+if __name__ == '__main__':
+    solve()
