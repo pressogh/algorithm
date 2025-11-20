@@ -1,23 +1,20 @@
-# 11659
-import collections          # 가장 많은 숫자, deque 등
-import sys                  # 여러줄 입력
-import re                   # 문자 제거
-import string               # 문자열 함수
-import copy                 # 깊은 복사
-import itertools            # 순열 조합(permutations, combinations)
-import math                 # 수학
-import bisect               # 이진 탐색
-from pprint import pprint   # 출력
-from decimal import *       # 임의 정밀도
-import functools            # sort key 함수(cmp_to_key)
-input = sys.stdin.readline
+import sys, os, io, atexit
 
-n, m = map(int, input().rstrip().split())
-lst = list(map(int, input().rstrip().split()))
-ans = [0, lst[0]]
-for i in range(1, n):
-    ans.append(ans[-1]+lst[i])
+input = lambda: sys.stdin.readline().rstrip('\r\n')
+stdout = io.BytesIO()
+sys.stdout.write = lambda s: stdout.write(s.encode("ascii"))
+atexit.register(lambda: os.write(1, stdout.getvalue()))
 
-for _ in range(m):
-    a, b = map(int, input().rstrip().split())
-    print(ans[b] - ans[a - 1])
+def solve():
+    _, m = map(int, input().split())
+    l = list(map(int, input().split()))
+    for i in range(1, len(l)): l[i] += l[i - 1]
+    
+    while m > 0:
+        m -= 1
+        start, end = map(lambda x: int(x) - 1, input().split())
+        if start == 0: print(l[end])
+        else: print(l[end] - l[start - 1])
+
+if __name__ == '__main__':
+    solve()
