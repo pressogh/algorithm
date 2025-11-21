@@ -1,55 +1,52 @@
-# 1012
-import collections      # 가장 많은 숫자, deque 등
-import sys              # 여러줄 입력
-import re               # 문자 제거
-import string           # 문자열 함수
-import copy             # 깊은 복사
-import itertools        # 순열 조합(permutations, combinations)
-import math             # 수학
-import bisect           # 이진 탐색
-import pprint           # 출력
-from decimal import *   # 임의 정밀도(getcontext().prec, Decimal)
-import random
-import functools        # sort key 함수(cmp_to_key)
+import sys, os, io, atexit
 
-n, m = 0, 0
+input = lambda: sys.stdin.readline().rstrip('\r\n')
+stdout = io.BytesIO()
+sys.stdout.write = lambda s: stdout.write(s.encode("ascii"))
+atexit.register(lambda: os.write(1, stdout.getvalue()))
+
+from collections import deque
+
 dx = [0, 1, 0, -1]
 dy = [1, 0, -1, 0]
-lst = []
-check = []
 
-def bfs(x, y):
-    global lst, check
+def dfs(l, coors):
+    cq = deque(coors)
+    dq = deque()
 
-    q = collections.deque()
-    q.append((x, y))
-    check[x][y] = 1
-    
-    while q:
-        tmp = q.popleft()
+    now = 1
+    while len(cq) > 0:
+        if len(dq) <= 0:
+            dq.append(cq.pop())
+            now += 1
+            continue
+
+        y, x = dq.pop()
+        if l[y][x] != 1: continue
+
+        l[y][x] = now
         for i in range(4):
-            ax = tmp[0] + dx[i]
-            ay = tmp[1] + dy[i]
-            if 0 <= ax < m and 0 <= ay < n:
-                if not check[ax][ay] and lst[ax][ay]:
-                    q.append((ax, ay))
-                    check[ax][ay] = 1
-
-for _ in  range(int(input())):
-    n, m, k = map(int, input().split())
-    lst = [[0 for _ in range(n)] for _ in range(m)]
-    check = [[0 for _ in range(n)] for _ in range(m)]
+            ny, nx = y + dy[i], x + dx[i]
+            if 0 <= ny < len(l) and 0 <= nx < len(l[0]) and l[ny][nx] == 1:
+                dq.append((ny, nx))
     
-    ans = 0
+    res = set()
+    for i in range(len(l)):
+        for j in range(len(l[i])):
+            if l[i][j] != 0: res.add(l[i][j])
+    return len(res)
 
-    for i in range(k):
-        a, b = map(int, input().split())
-        lst[b][a] = 1
+t = int(input())
 
-    for i in range(m):
-        for j in range(n):
-            if lst[i][j] == 1 and check[i][j] == 0:
-                bfs(i, j)
-                ans += 1
-    print(ans)
-    ans = 0
+while t > 0:
+    t -= 1
+    n, m, k = map(int, input().split())
+
+    l = [[0 for _ in range(n)] for _ in range(m)]
+    coor_list = []
+    for _ in range(k):
+        x, y = map(int, input().split())
+        l[y][x] = 1
+        coor_list.append((y, x))
+    
+    print(dfs(l, coor_list))
