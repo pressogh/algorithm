@@ -1,50 +1,49 @@
-# 5430
-import collections      # 가장 많은 숫자, deque 등
-import sys              # 여러줄 입력
-import re               # 문자 제거
-import string           # 문자열 함수
-import copy             # 깊은 복사
-import itertools        # 순열 조합(permutations, combinations)
-import math             # 수학
-import bisect           # 이진 탐색
-import pprint           # 출력
-from decimal import *   # 임의 정밀도
-import random
-import functools        # sort key 함수(cmp_to_key)
+import sys, os, io, atexit
 
-for _ in range(int(input())):
-    s = list(input())
-    input()
-    tmp = input()
-    tmp = re.sub("\[|\]|\,"," ",tmp)
-    lst = collections.deque(map(str, tmp.split()))
+input = lambda: sys.stdin.readline().rstrip('\r\n')
+stdout = io.BytesIO()
+sys.stdout.write = lambda s: stdout.write(s.encode("ascii"))
+atexit.register(lambda: os.write(1, stdout.getvalue()))
 
-    flag = True
+from collections import deque
+
+t = int(input())
+while t > 0:
+    t -= 1
+    func, _ = input(), input()
+    arr = input()[1:-1]
+    dq = deque(arr.split(',')) if len(arr) > 0 else deque()
+
+    has_err, rev = False, False
     i = 0
-    r_count = 0
-    while True:
-        if i >= len(s):
-            break
-        if s[i] == 'R':
-            r_count += 1
-        elif s[i] == 'D':
-            if lst:
-                if r_count % 2 == 0:
-                    lst.popleft()
-                else:
-                    lst.pop()
-            else:
-                print('error')
-                flag = False
-                break
-        i += 1
+    while i < len(func):
+        now_cmd = func[i]
 
-    if flag and lst:
-        if r_count % 2 != 0:
-            lst.reverse()
+        j = i
+        while j < len(func) and func[j] == now_cmd:
+            j += 1
+
+        count = j - i
+        match now_cmd:
+            case 'R':
+                if count % 2 != 0: rev = not rev
+            case 'D':
+                if count > len(dq):
+                    print('error')
+                    has_err = True
+                    break
+                else:
+                    for _ in range(count):
+                        if not rev: dq.popleft()
+                        else: dq.pop()
+        i += count
+    
+    if not has_err:
         print('[', end='')
-        for i in range(len(lst) - 1):
-            print(lst[i], ',', sep='', end='')
-        print(lst[-1], ']', sep='')
-    elif not lst and flag:
-        print('[]')
+        if not rev:
+            for i in range(len(dq)):
+                print(dq[i], end=',' if i != len(dq) - 1 else '')
+        else:
+            for i in range(len(dq) - 1, -1, -1):
+                print(dq[i], end=',' if i != 0 else '')
+        print(']')
