@@ -1,19 +1,23 @@
-# 15654
-import collections          # 가장 많은 숫자, deque 등
-import sys                  # 여러줄 입력
-import re                   # 문자 제거
-import string               # 문자열 함수
-import copy                 # 깊은 복사
-import itertools            # 순열 조합(permutations, combinations)
-import math                 # 수학
-import bisect               # 이진 탐색
-from pprint import pprint   # 출력
-from decimal import *       # 임의 정밀도
-import functools            # sort key 함수(cmp_to_key)
-input = sys.stdin.readline
+import sys, os, io, atexit
 
-n, m = map(int, input().rstrip().split())
-lst = sorted(list(map(int, input().rstrip().split())))
+input = lambda: sys.stdin.readline().rstrip('\r\n')
+stdout = io.BytesIO()
+sys.stdout.write = lambda s: stdout.write(s.encode("ascii"))
+atexit.register(lambda: os.write(1, stdout.getvalue()))
 
-for item in list(itertools.permutations(lst, r=m)):
-    print(*item)
+from collections import deque
+
+n, m = map(int, input().split())
+l = sorted(list(set(map(int, input().split()))))
+dq = deque([([x], set([x])) for x in l])
+
+while dq:
+    now, used = dq.popleft()
+
+    if len(now) >= m:
+        print(*now)
+        continue
+
+    for i in range(n):
+        if l[i] not in used:
+            dq.append((now + [l[i]], used | set([l[i]])))
