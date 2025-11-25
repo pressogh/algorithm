@@ -1,48 +1,38 @@
-# 7576
-import collections      # 가장 많은 숫자, deque 등
-import sys              # 여러줄 입력
-import re               # 문자 제거
-import string           # 문자열 함수
-import copy             # 깊은 복사
-import itertools        # 순열 조합(permutations, combinations)
-import math             # 수학
-import bisect           # 이진 탐색
-import pprint           # 출력
-from decimal import *   # 임의 정밀도(getcontext().prec, Decimal)
-import random
-import functools        # sort key 함수(cmp_to_key)
+import sys, os, io, atexit
 
-n, m = map(int, input().split())
-lst = [list(map(int, input().split())) for _ in range(m)]
+input = lambda: sys.stdin.readline().rstrip('\r\n')
+stdout = io.BytesIO()
+sys.stdout.write = lambda s: stdout.write(s.encode("ascii"))
+atexit.register(lambda: os.write(1, stdout.getvalue()))
 
-def isSafe(x, y):
-    if 0 <= x < m and 0 <= y < n:
-        return True
-    return False
+from collections import deque
 
-dx = [1, 0, -1, 0]
-dy = [0, 1, 0, -1]
-q = collections.deque()
+dy, dx = [0, 1, 0, -1], [1, 0, -1, 0]
 
-def bfs():
-    while q:
-        tmp = q.popleft()
-        for i in range(4):
-            if isSafe(tmp[0]+dx[i], tmp[1]+dy[i]) and lst[tmp[0]+dx[i]][tmp[1]+dy[i]] == 0:
-                lst[tmp[0]+dx[i]][tmp[1]+dy[i]] = lst[tmp[0]][tmp[1]] + 1
-                q.append((tmp[0]+dx[i], tmp[1]+dy[i]))
+m, n = map(int, input().split())
+box = [[int(x) for x in input().split()] for _ in range(n)]
 
-for i in range(m):
-    for j in range(n):
-        if lst[i][j] == 1:
-            q.append((i, j))
+dq = deque()
+for i in range(n):
+    for j in range(m):
+        if box[i][j] == 1: dq.append(((i, j), 1))
 
-bfs()
-ans = -1
-for i in range(len(lst)):
-    ans = max(ans, max(lst[i]))
-    if 0 in lst[i]:
-        print(-1)
-        exit(0)
 
-print(ans - 1)
+while dq:
+    coor, count = dq.popleft()
+
+    for i in range(4):
+        next_y, next_x, next_count = coor[0] + dy[i], coor[1] + dx[i], count + 1
+        if 0 <= next_y < n and 0 <= next_x < m and box[next_y][next_x] == 0:
+            box[next_y][next_x] = next_count
+            dq.append(((next_y, next_x), next_count))
+
+
+for i in range(n):
+    for j in range(m):
+        if box[i][j] == 0:
+            print(-1)
+            exit(0)
+        if res < box[i][j]: res = box[i][j]
+
+print(res - 1)
