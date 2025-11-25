@@ -1,25 +1,20 @@
-# 1931
-import collections  # 가장 많은 숫자, deque 등
-import sys          # 여러줄 입력
-import re           # 문자 제거
-import string       # 문자열 함수
-import copy         # 깊은 복사
-import itertools    # 순열 조합(permutations, combinations)
-import math         # 수학
-import bisect       # 이진 탐색
-import pprint       # 출력
+import sys, os, io, atexit
+
+input = lambda: sys.stdin.readline().rstrip('\r\n')
+stdout = io.BytesIO()
+sys.stdout.write = lambda s: stdout.write(s.encode("ascii"))
+atexit.register(lambda: os.write(1, stdout.getvalue()))
 
 n = int(input())
-lst = []
-for i in range(n):
-    a, b = map(int, input().split())
-    lst.append((a, b))
-lst.sort(key=lambda x: (x[1], x[0]))
+l = []
+for _ in range(n):
+    start, end = map(int, input().split())
+    l.append((start, end))
+l.sort(key=lambda x: (x[1], x[0]))
 
-ans = 0
-end = 0
-for i in range(n):
-    if end <= lst[i][0]:
-        end = lst[i][1]
-        ans += 1
-print(ans)
+count, end = 1, l[0][1]
+for i in range(1, n):
+    if l[i][0] >= end:
+        end = l[i][1]
+        count += 1
+print(count)
