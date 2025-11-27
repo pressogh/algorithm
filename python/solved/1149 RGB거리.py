@@ -1,21 +1,18 @@
-# 1149
-import collections  # 가장 많은 숫자, deque 등
-import sys          # 여러줄 입력
-import re           # 문자 제거
-import string       # 문자열 함수
-import copy         # 깊은 복사
-import itertools    # 순열 조합(permutations, combinations)
-import math         # 수학
-import bisect       # 이진 탐색
-import pprint       # 출력
+import sys, os, io, atexit
+
+input = lambda: sys.stdin.readline().rstrip('\r\n')
+stdout = io.BytesIO()
+sys.stdout.write = lambda s: stdout.write(s.encode("ascii"))
+atexit.register(lambda: os.write(1, stdout.getvalue()))
 
 n = int(input())
-lst = [list(map(int, input().split())) for _ in range(n)]
+price = [[int(x) for x in input().split()] for _ in range(n)]
+dp = [[0] * 3 for _ in range(n)]
+dp[0][0], dp[0][1], dp[0][2] = price[0][0], price[0][1], price[0][2]
 
-for i in range(0, n-1):
-    lst[i+1][0] += min(lst[i][1], lst[i][2])
-    lst[i+1][1] += min(lst[i][0], lst[i][2])
-    lst[i+1][2] += min(lst[i][0], lst[i][1])
-print(min(lst[n-1]))
+for i in range(1, n):
+    dp[i][0] = min(dp[i - 1][1], dp[i - 1][2]) + price[i][0]
+    dp[i][1] = min(dp[i - 1][0], dp[i - 1][2]) + price[i][1]
+    dp[i][2] = min(dp[i - 1][0], dp[i - 1][1]) + price[i][2]
 
-# 다이나믹 프로그래밍 연습하자
+print(min(dp[-1]))
