@@ -1,29 +1,27 @@
-# 2096
-# import 도 메모리를 차지한다.
-import sys                  # 여러줄 입력
-input = sys.stdin.readline
+import sys, os, io, atexit
 
-n = int(input())
-maxLst = [[0 for _ in range(3)] for _ in range(2)]
-minLst = [[0 for _ in range(3)] for _ in range(2)]
+input = lambda: sys.stdin.readline().rstrip('\r\n')
+stdout = io.BytesIO()
+sys.stdout.write = lambda s: stdout.write(s.encode("ascii"))
+atexit.register(lambda: os.write(1, stdout.getvalue()))
 
-for _ in range(n):
-    tmp = list(map(int, input().split()))
-    maxLst[1][0] = max(maxLst[0][0], maxLst[0][1]) + tmp[0]
-    minLst[1][0] = min(minLst[0][0], minLst[0][1]) + tmp[0]
+mid, mad = [[0] * 3 for _ in range(2)], [[0] * 3 for _ in range(2)]
+for i in range(int(input())):
+    a, b, c = map(int, input().split())
 
-    maxLst[1][1] = max(maxLst[0][0], maxLst[0][1], maxLst[0][2]) + tmp[1]
-    minLst[1][1] = min(minLst[0][0], minLst[0][1], minLst[0][2]) + tmp[1]
+    if i == 0:
+        mid[1][0], mid[1][1], mid[1][2] = a, b, c
+        mad[1][0], mad[1][1], mad[1][2] = a, b, c
+        continue
 
-    maxLst[1][2] = max(maxLst[0][1], maxLst[0][2]) + tmp[2]
-    minLst[1][2] = min(minLst[0][1], minLst[0][2]) + tmp[2]
+    mid[0][0], mid[0][1], mid[0][2] = mid[1][0], mid[1][1], mid[1][2]
+    mad[0][0], mad[0][1], mad[0][2] = mad[1][0], mad[1][1], mad[1][2]
 
-    maxLst[0][0] = maxLst[1][0]
-    maxLst[0][1] = maxLst[1][1]
-    maxLst[0][2] = maxLst[1][2]
+    mid[1][0] = min(mid[0][0], mid[0][1]) + a
+    mid[1][1] = min(mid[0][0], mid[0][1], mid[0][2]) + b
+    mid[1][2] = min(mid[0][1], mid[0][2]) + c
+    mad[1][0] = max(mad[0][0], mad[0][1]) + a
+    mad[1][1] = max(mad[0][0], mad[0][1], mad[0][2]) + b
+    mad[1][2] = max(mad[0][1], mad[0][2]) + c
 
-    minLst[0][0] = minLst[1][0]
-    minLst[0][1] = minLst[1][1]
-    minLst[0][2] = minLst[1][2]
-
-print(max(maxLst[1]), min(minLst[1]))
+print(max(mad[-1]), min(mid[-1]))
