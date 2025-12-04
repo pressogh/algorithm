@@ -1,43 +1,35 @@
-# 1753
-import collections          # 가장 많은 숫자, deque 등
-import sys                  # 여러줄 입력
-import re                   # 문자 제거
-import string               # 문자열 함수
-import copy                 # 깊은 복사
-import itertools            # 순열 조합(permutations, combinations)
-import math                 # 수학
-import bisect               # 이진 탐색
-from pprint import pprint   # 출력
-from decimal import *       # 임의 정밀도
-import functools            # sort key 함수(cmp_to_key)
-import heapq                # 우선순위 큐
-import random
-input = sys.stdin.readline
+import sys, os, io, atexit
 
-n, m = map(int, input().split())
-x = int(input())
-lst = [[] for _ in range(n + 1)]
+input = lambda: sys.stdin.readline().rstrip('\r\n')
+stdout = io.BytesIO()
+sys.stdout.write = lambda s: stdout.write(s.encode("ascii"))
+atexit.register(lambda: os.write(1, stdout.getvalue()))
 
-distance = [float('inf') for _ in range(n + 1)]
-def dij(start):
-    q = []
-    heapq.heappush(q, (0, start))
-    distance[start] = 0
+import heapq
 
-    while q:
-        tmp = heapq.heappop(q)
-        for item in lst[tmp[1]]:
-            if distance[item[0]] > tmp[0] + item[1]:
-                distance[item[0]] = tmp[0] + item[1]
-                heapq.heappush(q, (distance[item[0]], item[0]))
+v, e = map(int, input().split())
+start = int(input())
 
-for i in range(m):
-    a, b, c = map(int, input().split())
-    lst[a].append((b, c))
+graph = dict()
+for i in range(1, v + 1): graph[i] = []
 
-dij(x)
-for i in range(1, len(distance)):
-    if distance[i] == float('inf'):
-        print("INF")
-        continue
-    print(distance[i])
+for _ in range(e):
+    f, t, p = map(int, input().split())
+    graph[f].append((t, p))
+
+d = [2 ** 31] * (v + 1)
+d[start] = 0
+hq = [(0, start)]
+visited = set()
+while hq:
+    val, now = heapq.heappop(hq)
+
+    if now in visited: continue
+    visited.add(now)
+
+    for nxt, w in graph[now]:
+        if d[now] + w < d[nxt]:
+            d[nxt] = d[now] + w
+            heapq.heappush(hq, (d[nxt], nxt))
+
+print(*[x if x != 2 ** 31 else 'INF' for x in d[1:]], sep='\n')
