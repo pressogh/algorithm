@@ -23,8 +23,11 @@ hq, graph = [(-1 << 31, start)], [0] * n
 graph[start] = 1 << 31
 while hq:
     can, now = heappop(hq)
+    can *= -1
+    if can < graph[now]: continue
+
     for c in connect[now]:
-        t = min(-can, connect[now][c])
+        t = min(can, connect[now][c])
         if t > graph[c]:
             graph[c] = t
             heappush(hq, (-t, c))
