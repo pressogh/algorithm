@@ -10,7 +10,7 @@ arr = [[*map(int, input())] for _ in range(n)]
 
 dp = [[[0] * (1 << n) for _ in range(10)] for _ in range(n)]
 dp[0][0][0] = 1
-s = [(0, 0, 0)]
+s, res = [(0, 0, 0)], 0
 while s:
     now, price, log = s.pop()
     
@@ -25,11 +25,7 @@ while s:
         ): continue
 
         dp[nxt][n_price][n_log] = dp[now][price][log] + 1
+        res = max(res, dp[nxt][n_price][n_log])
         s.append((nxt, n_price, n_log))
 
-res = 0
-for i in range(n):
-    for j in range(10):
-        for k in range(1 << n):
-            res = max(res, dp[i][j][k])
 print(res)
