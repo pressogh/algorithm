@@ -5,8 +5,6 @@ stdout = io.BytesIO()
 sys.stdout.write = lambda s: stdout.write(s.encode("ascii"))
 atexit.register(lambda: os.write(1, stdout.getvalue()))
 
-from collections import deque
-
 n, m = map(int, input().split())
 graph = [[1 << 31] * n for _ in range(n)]
 while m:
