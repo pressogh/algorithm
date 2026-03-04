@@ -5,8 +5,6 @@ stdout = io.BytesIO()
 sys.stdout.write = lambda s: stdout.write(s.encode("ascii"))
 atexit.register(lambda: os.write(1, stdout.getvalue()))
 
-dy, dx = [0, 1, 0, -1], [1, 0, -1, 0]
-
 n, m = map(int, input().split())
 arr = [input() for _ in range(n)]
 
